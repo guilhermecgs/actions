@@ -33,11 +33,10 @@ jobs:
           
   deploy:
     runs-on: ubuntu-latest
+    needs: gmud
     environment:
       name: prd
-
     steps:
-
       - name: Print Environment 2
         run: |
           echo "environment: ${{ github.event.inputs.environment }}"
