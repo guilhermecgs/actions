@@ -1,21 +1,10 @@
-name: Deploy to Environment
+name: Deploy to PRD
 
 on:
   workflow_dispatch:
     inputs:
-      name:
-        type: choice
-        description: Who to greet
-        options: 
-        - monalisa
-        - cschleiden
       aprovador_gmud:
         required: true
-      use-emoji:
-        type: boolean
-        description: Include 🎉🤣 emojis
-      environment:
-        type: environment
 
 jobs:
   gmud:
@@ -26,11 +15,10 @@ jobs:
           echo "environment: ${{ github.event.inputs.environment }}"
           echo "aprovador_gmud: ${{ github.event.inputs.aprovador_gmud }}" 
           
-      - name: something 2
+      - name: create gmud
         run: |
           echo "something 2"
-        
-          
+         
   deploy:
     runs-on: ubuntu-latest
     needs: gmud
