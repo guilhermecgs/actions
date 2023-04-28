@@ -1,23 +1,16 @@
 name: Deploy to Environment
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        environment: [prd] # Define manual input parameter
-        aprovador_gmud: ["${{ github.event.inputs.aprovador_gmud }}"] 
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-          
-      - name: Deploy to Environment
-        run: echo Deploying to Environment ....
+
+      - name: Print Environment
+      - run: |
+          echo "environment: ${{ github.event.inputs.environment }}"
+          echo "aprovador_gmud: ${{ github.event.inputs.aprovador_gmud }}" 
 
