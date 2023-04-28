@@ -10,7 +10,7 @@ jobs:
     steps:
 
       - name: Print Environment
-      - run: |
+        run: |
           echo "environment: ${{ github.event.inputs.environment }}"
           echo "aprovador_gmud: ${{ github.event.inputs.aprovador_gmud }}" 
 
