@@ -1,0 +1,27 @@
+name: Deploy to Environment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [prd] # Define manual input parameter
+        aprovador_gmud: ["${{ github.event.inputs.aprovador_gmud }}"] 
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+          
+      - name: Deploy to Environment
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote-user: ${{ secrets.REMOTE_USER }}
+          server-ip: ${{ secrets.SERVER_IP }}
+          source: 'dist'
+          target: '/var/www/html'
