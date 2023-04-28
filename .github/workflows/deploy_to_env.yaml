@@ -4,12 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        type: environment
+        type: choice
+        description: Ambiente para fazer deploy não produtivo
+        options: 
+        - qa
+        - dev
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: gmud
     environment:
       name: ${{ github.event.inputs.environment }}
     steps:
