@@ -24,7 +24,7 @@ jobs:
       - name: Set environment ID
         id: set-environment-id
         run: |
-          echo "::set-output name=env_id::${{ fromJson(steps.get-environment-id.outputs.response) | select(.name == env.ENVIRONMENT_NAME) | .id }}"
+          echo "::set-output name=env_id::${{ fromJson(steps.get-environment-id.outputs.response) | jq --raw-output --arg env_name ${{ env.ENVIRONMENT_NAME }} '.[] | select(.name == $env_name) | .id' }}"
       - name: Print environment ID
         run: echo "Environment Id for ${{ env.ENVIRONMENT_NAME }} is ${{ steps.set-environment-id.outputs.env_id }}"
                   
