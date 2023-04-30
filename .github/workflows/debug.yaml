@@ -23,8 +23,10 @@ jobs:
           output-format: json
       - name: Set environment ID
         id: set-environment-id
+        
         run: |
-          echo "::set-output name=env_id::${{ steps.get-environment-id.outputs.response | fromJson | jq --raw-output --arg env_name ${{ env.ENVIRONMENT_NAME }} '.[] | select(.name == $env_name) | .id' }}"
+          echo "${{steps.get-environment-id.outputs.response}}"
+#          echo "::set-output name=env_id::${{ steps.get-environment-id.outputs.response | fromJson | jq --raw-output --arg env_name ${{ env.ENVIRONMENT_NAME }} '.[] | select(.name == $env_name) | .id' }}"
       - name: Print environment ID
         run: echo "Environment Id for ${{ env.ENVIRONMENT_NAME }} is ${{ steps.set-environment-id.outputs.env_id }}"
                   
