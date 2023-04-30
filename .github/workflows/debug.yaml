@@ -1,0 +1,14 @@
+name: DEBUG
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
+    steps:
+      - name: Dump GitHub context
+        run: run: echo "$GITHUB_CONTEXT"
+          
