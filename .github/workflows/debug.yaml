@@ -9,6 +9,20 @@ on:
   
 jobs:
 
+  get-environment-id:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get environment ID
+        uses: actions/http-client@v1
+        with:
+          url: https://api.github.com/repos/${{ github.repository }}/environments
+          method: GET
+          headers: |
+            Authorization: token ${{ secrets.GITHUB_TOKEN }}
+          outputs: env_id: $.[] | select(.name == '${{ env.ENVIRONMENT_NAME }}') | .id
+      - name: Print environment ID
+        run: echo ${{ steps.get-environment-id.outputs.env_id }}
+        
   eid:
       runs-on: ubuntu-latest
       steps:
