@@ -2,7 +2,10 @@ name: DEBUG
 
 on:
   workflow_dispatch:
-
+    inputs:
+      environment:
+        type: environment
+        
 jobs:
   debug:
     runs-on: ubuntu-latest
