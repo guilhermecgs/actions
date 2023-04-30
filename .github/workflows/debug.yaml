@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get environment ID
-        uses: actions/http-client@v1
+        uses: actions/http-client@v2.x
         id: get-environment-id
         with:
           url: https://api.github.com/repos/${{ github.repository }}/environments
