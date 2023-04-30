@@ -6,13 +6,11 @@ on:
       environment:
         type: environment
         
-
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  
 jobs:
-  example_job:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get environment ID - qa hardcoded
-          run: echo "Environment ID is ${{ environments.qa.id }}"
+
         
   debug:
     runs-on: ubuntu-latest
