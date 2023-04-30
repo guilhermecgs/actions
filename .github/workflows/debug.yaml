@@ -5,13 +5,40 @@ on:
     inputs:
       environment:
         type: environment
-        
-env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
   
 jobs:
 
-        
+  eid:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get Environment Id
+          id: environment-id
+          shell: pwsh
+          run: |
+            $environmentId = ""
+            $url = "https://api.github.com/repos/${{ github.repository }}/environments"
+            $response = Invoke-RestMethod -Uri $url -Method Get  -Headers @{
+              Authorization = "Bearer ${{ secrets.GITHUB_TOKEN }}"
+            }
+            if ($response){
+              # Find Environment Id...
+              foreach ($environment in $response.environments) {
+                if ($environment.name -eq "qa"){
+                  $environmentId = $environment.id
+                  break
+                }
+              }
+            }
+
+            # Set output
+            echo "::set-output name=value::$(echo $environmentId)"
+
+        - name: Show me Environment Id
+          run: echo "Environment Id for qa is ${{ steps.environment-id.outputs.value }}"
+
+
+          
   debug:
     runs-on: ubuntu-latest
     env:
