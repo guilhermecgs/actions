@@ -1,4 +1,4 @@
-name: DEBUG
+name: debug env vars
 
 on:
   workflow_dispatch:
@@ -14,14 +14,19 @@ jobs:
     steps:
       - name: Get environment ID
         uses: actions/http-client@v1
+        id: get-environment-id
         with:
           url: https://api.github.com/repos/${{ github.repository }}/environments
           method: GET
           headers: |
             Authorization: token ${{ secrets.GITHUB_TOKEN }}
-          outputs: env_id: $.[] | select(.name == '${{ env.ENVIRONMENT_NAME }}') | .id
+          output-format: json
+      - name: Set environment ID
+        id: set-environment-id
+        run: |
+          echo "::set-output name=env_id::${{ fromJson(steps.get-environment-id.outputs.response).[] | select(.name == env.ENVIRONMENT_NAME).id }}"
       - name: Print environment ID
-        run: echo ${{ steps.get-environment-id.outputs.env_id }}
+        run: echo ${{ steps.set-environment-id.outputs.env_id }}
         
   eid:
       runs-on: ubuntu-latest
