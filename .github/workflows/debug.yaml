@@ -6,7 +6,14 @@ on:
       environment:
         type: environment
         
+
 jobs:
+  example_job:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get environment ID
+          run: echo "Environment ID is ${{ environments.<ENVIRONMENT_NAME>.id }}"
+        
   debug:
     runs-on: ubuntu-latest
     env:
