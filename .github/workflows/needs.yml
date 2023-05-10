@@ -22,9 +22,20 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
+    
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+        
+      - name: Dump needs context
+        env:
+          NEEDS_CONTEXT: ${{ toJson(needs) }}
+        run: echo "$NEEDS_CONTEXT"
+        
       - name: Job C
         run: |
-          if [ ${{ job.status }} = 'failure' ]; then
+          if [ ${{ needs.jobB.status }} = 'failure' ]; then
             echo "Job B failed with exit status ${{ job.status }}"
           else
             echo "Job B succeeded with exit status ${{ job.status }}"
