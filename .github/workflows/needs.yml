@@ -1,0 +1,29 @@
+name: Example Workflow
+
+on: [push]
+
+jobs:
+  jobA:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job A
+        run: echo "This is job A"
+
+  jobB:
+    needs: jobA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job B
+        run: exit 1
+
+  jobC:
+    needs: [jobA, jobB]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job C
+        run: |
+          if [ ${{ job.status }} = 'failure' ]; then
+            echo "Job B failed with exit status ${{ job.status }}"
+          else
+            echo "Job B succeeded with exit status ${{ job.status }}"
+          fi
