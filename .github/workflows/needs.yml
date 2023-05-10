@@ -35,8 +35,8 @@ jobs:
         
       - name: Job C
         run: |
-          if [ ${{ needs.jobB.status }} = 'failure' ]; then
-            echo "Job B failed with exit status ${{ job.status }}"
+          if [ ${{ needs.jobB.result }} = 'failure' ]; then
+            echo "Job B failed"
           else
-            echo "Job B succeeded with exit status ${{ job.status }}"
+            echo "Job B succeeded"
           fi
