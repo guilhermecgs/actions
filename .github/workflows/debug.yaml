@@ -1,4 +1,4 @@
-name: debug env vars
+name: debug env vars - by @${{ github.actor }} to env ${{ inputs.environment }}
 
 on:
   workflow_dispatch:
