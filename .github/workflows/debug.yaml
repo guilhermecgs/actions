@@ -19,6 +19,17 @@ jobs:
       - name: Dump GitHub context
         run: echo "$GITHUB_CONTEXT"
         
+      - uses: octokit/request-action@v2.x
+        id: get_run_information
+        with:
+          route: GET /repos/{repository}/actions/runs/{run_id}
+          repository: ${{ github.repository }}
+          run_id: ${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - run: "echo latest release: '${{ steps.get_run_information.outputs.data }}'"
+      
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
