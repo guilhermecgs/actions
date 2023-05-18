@@ -22,9 +22,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_run_information
         with:
-          route: GET /repos/{repository}/actions/runs/{run_id}
-          repository: ${{ github.repository }}
-          run_id: ${{ github.run_id }}
+          route: GET /repos/${{ github.repository }}/actions/runs/${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
