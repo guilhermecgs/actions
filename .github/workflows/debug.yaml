@@ -59,6 +59,15 @@ jobs:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
+      - name: env context
+        run: |
+          echo "${{ github.env.a-b-c}}"
+          echo "${{ github.env.a-dois}}"
+          echo "${{ github.env.a-tres}}"
+          echo "${{ env.a-b-c}}"
+          echo "${{ env.a-dois}}"
+          echo "${{ env.a-tres}}"
+
   debug_2:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
