@@ -2,6 +2,12 @@ name: debug env vars
 
 run-name: debug env vars - by @${{ github.actor }} to env ${{ inputs.environment }}
 
+env:
+  DAY_OF_WEEK: Monday
+  a-b-c: abcc
+  a-dois: '2222'
+  a-tres: "333"
+  
 on:
   workflow_dispatch:
     inputs:
